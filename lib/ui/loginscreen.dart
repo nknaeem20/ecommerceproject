@@ -62,12 +62,12 @@ class _LoginscreenState extends State<Loginscreen> {
                           height: 20.h,
                         ),
                         Text(
-                          "Welcome Back",
+                          "Welcome",
                           style: TextStyle(
                               fontSize: 22.sp, color: appcolor.mycolor),
                         ),
                         Text(
-                          "Glad to see you back my buddy.",
+                          "Glad to see you.",
                           style: TextStyle(
                             fontSize: 14.sp,
                             color: Color(0xFFBBBBBB),
@@ -99,7 +99,7 @@ class _LoginscreenState extends State<Loginscreen> {
                               child: TextField(
                                 
                                 decoration: InputDecoration(
-                                  hintText: "thed9954@gmail.com",
+                                  hintText: "Enter your email address",
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: Color(0xFF414041),
@@ -141,7 +141,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                 
                                 
                                 decoration: InputDecoration(
-                                  hintText: "password must be 6 character",
+                                  hintText: "Password must be 6 character",
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: Color(0xFF414041),
