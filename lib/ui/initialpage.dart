@@ -14,7 +14,7 @@ class Initialpage extends StatefulWidget {
 
 class _InitialpageState extends State<Initialpage> {
   void initState(){
-  Timer(Duration(seconds: 3), ()=>Navigator.push(context,
+  Timer(Duration(seconds: 1), ()=>Navigator.push(context,
   MaterialPageRoute(builder:(_)=> Loginscreen())));
 }
 

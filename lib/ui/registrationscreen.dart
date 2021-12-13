@@ -1,16 +1,16 @@
 import 'package:ecommerceproject/const/appcolor.dart';
-import 'package:ecommerceproject/ui/registrationscreen.dart';
+import 'package:ecommerceproject/ui/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Loginscreen extends StatefulWidget {
-  const Loginscreen({Key? key}) : super(key: key);
+class Registrationwidget extends StatefulWidget {
+  const Registrationwidget({ Key? key }) : super(key: key);
 
   @override
-  _LoginscreenState createState() => _LoginscreenState();
+  _RegistrationwidgetState createState() => _RegistrationwidgetState();
 }
 
-class _LoginscreenState extends State<Loginscreen> {
+class _RegistrationwidgetState extends State<Registrationwidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,11 +27,15 @@ class _LoginscreenState extends State<Loginscreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 50.h
+                    IconButton(
+                      onPressed: null,
+                      icon: Icon(
+                        Icons.light,
+                        color: Colors.transparent,
+                      ),
                     ),
                     Text(
-                      "Sign In",
+                      "Registration",
                       style: TextStyle(fontSize: 22.sp, color: Colors.white),
                     ),
                   ],
@@ -59,7 +63,7 @@ class _LoginscreenState extends State<Loginscreen> {
                           height: 20.h,
                         ),
                         Text(
-                          "Welcome",
+                          "Welcome To Registration",
                           style: TextStyle(
                               fontSize: 22.sp, color: appcolor.mycolor),
                         ),
@@ -94,6 +98,7 @@ class _LoginscreenState extends State<Loginscreen> {
                             ),
                             Expanded(
                               child: TextField(
+                                
                                 decoration: InputDecoration(
                                   hintText: "Enter your email address",
                                   hintStyle: TextStyle(
@@ -134,13 +139,76 @@ class _LoginscreenState extends State<Loginscreen> {
                             ),
                             Expanded(
                               child: TextField(
+                                
+                                
                                 decoration: InputDecoration(
                                   hintText: "Password must be 6 character",
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: Color(0xFF414041),
                                   ),
-                                  labelText: 'PASSWORD',
+                                  labelText: 'Enter Password',
+                                  labelStyle: TextStyle(
+                                    fontSize: 15.sp,
+                                    color: appcolor.mycolor,
+                                  ),
+                                  // suffixIcon: _obscureText == true
+                                  //     ? IconButton(
+                                  //         onPressed: () {
+                                  //           setState(() {
+                                  //             _obscureText = false;
+                                  //           });
+                                  //         },
+                                  //         icon: Icon(
+                                  //           Icons.remove_red_eye,
+                                  //           size: 20.w,
+                                  //         ))
+                                  //     : IconButton(
+                                  //         onPressed: () {
+                                  //           setState(() {
+                                  //             _obscureText = true;
+                                  //           });
+                                  //         },
+                                  //         icon: Icon(
+                                  //           Icons.visibility_off,
+                                  //           size: 20.w,
+                                  //         )),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10.h,),
+                        Row(
+                          children: [
+                            Container(
+                              height: 48.h,
+                              width: 41.w,
+                              decoration: BoxDecoration(
+                                  color: appcolor.mycolor,
+                                  borderRadius: BorderRadius.circular(12.r)),
+                              child: Center(
+                                child: Icon(
+                                  Icons.lock_outline,
+                                  color: Colors.white,
+                                  size: 20.w,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Expanded(
+                              child: TextField(
+                                
+                                
+                                decoration: InputDecoration(
+                                  hintText: "Password must be 6 character",
+                                  hintStyle: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: Color(0xFF414041),
+                                  ),
+                                  labelText: 'Confirm Password',
                                   labelStyle: TextStyle(
                                     fontSize: 15.sp,
                                     color: appcolor.mycolor,
@@ -172,6 +240,7 @@ class _LoginscreenState extends State<Loginscreen> {
                           ],
                         ),
 
+
                         SizedBox(
                           height: 50.h,
                         ),
@@ -180,9 +249,11 @@ class _LoginscreenState extends State<Loginscreen> {
                           width: 1.sw,
                           height: 56.w,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              
+                            },
                             child: Text(
-                              "SIGN IN",
+                              "SIGN UP",
                               style: TextStyle(
                                   color: Colors.white, fontSize: 18.sp),
                             ),
@@ -196,7 +267,7 @@ class _LoginscreenState extends State<Loginscreen> {
                         Wrap(
                           children: [
                             Text(
-                              "Don't have an account?",
+                              "Have an account?",
                               style: TextStyle(
                                 fontSize: 13.sp,
                                 fontWeight: FontWeight.w600,
@@ -205,7 +276,7 @@ class _LoginscreenState extends State<Loginscreen> {
                             ),
                             GestureDetector(
                               child: Text(
-                                " Sign Up",
+                                " SIGN IN",
                                 style: TextStyle(
                                   fontSize: 13.sp,
                                   fontWeight: FontWeight.w600,
@@ -217,7 +288,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            Registrationwidget()));
+                                            Loginscreen()));
                               },
                             )
                           ],
