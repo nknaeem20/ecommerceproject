@@ -1,7 +1,10 @@
 import 'package:ecommerceproject/const/appcolor.dart';
 import 'package:ecommerceproject/ui/loginscreen.dart';
+import 'package:ecommerceproject/ui/userform.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Registrationwidget extends StatefulWidget {
   const Registrationwidget({ Key? key }) : super(key: key);
@@ -12,6 +15,33 @@ class Registrationwidget extends StatefulWidget {
 
 class _RegistrationwidgetState extends State<Registrationwidget> {
   @override
+  TextEditingController _emailcontroller = TextEditingController();
+  TextEditingController _passwordcontroller = TextEditingController();
+  signup() async {
+    try {
+  UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: _emailcontroller.text,
+    password: _passwordcontroller.text,
+  );
+  var authCredential=userCredential.user;
+  print(authCredential!.uid);
+  if (authCredential.uid.isNotEmpty){
+    Navigator.push(context,
+    MaterialPageRoute(builder: (_)=>Userform()));
+  }
+  else {Fluttertoast.showToast(msg: "Something went wrong!");}
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'weak-password') {
+    Fluttertoast.showToast(msg: "The password provided is too weak.");
+    // print('The password provided is too weak.');
+  } else if (e.code == 'email-already-in-use') {
+    Fluttertoast.showToast(msg: "The account already exists for that email.");
+    // print('The account already exists for that email.');
+  }
+} catch (e) {
+  print(e);
+}
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appcolor.mycolor,
@@ -98,7 +128,7 @@ class _RegistrationwidgetState extends State<Registrationwidget> {
                             ),
                             Expanded(
                               child: TextField(
-                                
+                                controller: _emailcontroller,
                                 decoration: InputDecoration(
                                   hintText: "Enter your email address",
                                   hintStyle: TextStyle(
@@ -139,7 +169,7 @@ class _RegistrationwidgetState extends State<Registrationwidget> {
                             ),
                             Expanded(
                               child: TextField(
-                                
+                                controller: _passwordcontroller,
                                 
                                 decoration: InputDecoration(
                                   hintText: "Password must be 6 character",
@@ -250,7 +280,7 @@ class _RegistrationwidgetState extends State<Registrationwidget> {
                           height: 56.w,
                           child: ElevatedButton(
                             onPressed: () {
-                              
+                              signup();
                             },
                             child: Text(
                               "SIGN UP",
