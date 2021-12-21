@@ -1,7 +1,10 @@
 import 'package:ecommerceproject/const/appcolor.dart';
+import 'package:ecommerceproject/ui/navigator.dart';
 import 'package:ecommerceproject/ui/registrationscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({Key? key}) : super(key: key);
@@ -12,6 +15,34 @@ class Loginscreen extends StatefulWidget {
 
 class _LoginscreenState extends State<Loginscreen> {
   @override
+  TextEditingController _emailcontroller = TextEditingController();
+  TextEditingController _passwordcontroller = TextEditingController();
+  bool _obscureText = true;
+  signin() async {
+    try {
+  UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    email: _emailcontroller.text,
+    password: _passwordcontroller.text,
+  );
+  var authCredential=userCredential.user;
+  print(authCredential!.uid);
+  if (authCredential.uid.isNotEmpty){
+    Navigator.push(context,
+    MaterialPageRoute(builder: (_)=>Homewidget()));
+  }
+  else {Fluttertoast.showToast(msg: "Something went wrong!");}
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'user-not-found') {
+    Fluttertoast.showToast(msg: "No user found for that email.");
+    // print('The password provided is too weak.');
+  } else if (e.code == 'wrong-password') {
+    Fluttertoast.showToast(msg: "Wrong password provided for that user.");
+    // print('The account already exists for that email.');
+  }
+} catch (e) {
+  print(e);
+}
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appcolor.mycolor,
@@ -94,6 +125,7 @@ class _LoginscreenState extends State<Loginscreen> {
                             ),
                             Expanded(
                               child: TextField(
+                                controller: _emailcontroller,
                                 decoration: InputDecoration(
                                   hintText: "Enter your email address",
                                   hintStyle: TextStyle(
@@ -134,6 +166,8 @@ class _LoginscreenState extends State<Loginscreen> {
                             ),
                             Expanded(
                               child: TextField(
+                                controller: _passwordcontroller,
+                                obscureText: _obscureText,
                                 decoration: InputDecoration(
                                   hintText: "Password must be 6 character",
                                   hintStyle: TextStyle(
@@ -145,27 +179,27 @@ class _LoginscreenState extends State<Loginscreen> {
                                     fontSize: 15.sp,
                                     color: appcolor.mycolor,
                                   ),
-                                  // suffixIcon: _obscureText == true
-                                  //     ? IconButton(
-                                  //         onPressed: () {
-                                  //           setState(() {
-                                  //             _obscureText = false;
-                                  //           });
-                                  //         },
-                                  //         icon: Icon(
-                                  //           Icons.remove_red_eye,
-                                  //           size: 20.w,
-                                  //         ))
-                                  //     : IconButton(
-                                  //         onPressed: () {
-                                  //           setState(() {
-                                  //             _obscureText = true;
-                                  //           });
-                                  //         },
-                                  //         icon: Icon(
-                                  //           Icons.visibility_off,
-                                  //           size: 20.w,
-                                  //         )),
+                                  suffixIcon: _obscureText == true
+                                      ? IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _obscureText = false;
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.remove_red_eye,
+                                            size: 20.w,
+                                          ))
+                                      : IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _obscureText = true;
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.visibility_off,
+                                            size: 20.w,
+                                          )),
                                 ),
                               ),
                             ),
@@ -180,7 +214,9 @@ class _LoginscreenState extends State<Loginscreen> {
                           width: 1.sw,
                           height: 56.w,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              signin();
+                            },
                             child: Text(
                               "SIGN IN",
                               style: TextStyle(
