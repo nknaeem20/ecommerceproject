@@ -17,6 +17,7 @@ class _RegistrationwidgetState extends State<Registrationwidget> {
   @override
   TextEditingController _emailcontroller = TextEditingController();
   TextEditingController _passwordcontroller = TextEditingController();
+  bool _obscureText = true;
   signup() async {
     try {
   UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -170,7 +171,7 @@ class _RegistrationwidgetState extends State<Registrationwidget> {
                             Expanded(
                               child: TextField(
                                 controller: _passwordcontroller,
-                                
+                                obscureText: _obscureText,
                                 decoration: InputDecoration(
                                   hintText: "Password must be 6 character",
                                   hintStyle: TextStyle(
@@ -182,27 +183,27 @@ class _RegistrationwidgetState extends State<Registrationwidget> {
                                     fontSize: 15.sp,
                                     color: appcolor.mycolor,
                                   ),
-                                  // suffixIcon: _obscureText == true
-                                  //     ? IconButton(
-                                  //         onPressed: () {
-                                  //           setState(() {
-                                  //             _obscureText = false;
-                                  //           });
-                                  //         },
-                                  //         icon: Icon(
-                                  //           Icons.remove_red_eye,
-                                  //           size: 20.w,
-                                  //         ))
-                                  //     : IconButton(
-                                  //         onPressed: () {
-                                  //           setState(() {
-                                  //             _obscureText = true;
-                                  //           });
-                                  //         },
-                                  //         icon: Icon(
-                                  //           Icons.visibility_off,
-                                  //           size: 20.w,
-                                  //         )),
+                                  suffixIcon: _obscureText == true
+                                      ? IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _obscureText = false;
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.remove_red_eye,
+                                            size: 20.w,
+                                          ))
+                                      : IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _obscureText = true;
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.visibility_off,
+                                            size: 20.w,
+                                          )),
                                 ),
                               ),
                             ),
