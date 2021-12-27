@@ -1,4 +1,8 @@
 import 'package:ecommerceproject/const/appcolor.dart';
+import 'package:ecommerceproject/navigator/addtocart.dart';
+import 'package:ecommerceproject/navigator/favorite.dart';
+import 'package:ecommerceproject/navigator/homepage.dart';
+import 'package:ecommerceproject/navigator/profile.dart';
 import 'package:flutter/material.dart';
 class Homewidget extends StatefulWidget {
   const Homewidget({ Key? key }) : super(key: key);
@@ -9,6 +13,13 @@ class Homewidget extends StatefulWidget {
 
 class _HomewidgetState extends State<Homewidget> {
   @override
+  var indexpage = 0;
+  final page = [
+    Homepage(),
+    Favoritewidget(),
+    Cartwidget(),
+    Profilewidget(),
+  ];
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -27,8 +38,13 @@ class _HomewidgetState extends State<Homewidget> {
           BottomNavigationBarItem(icon: Icon(Icons.person),label:"Profile"),
           
         ],
-        onTap: (index){},
+        onTap: (index){
+          setState(() {
+            indexpage = index;
+          });
+        },
         ),
+        body: page[indexpage],
       ),
       
     );
