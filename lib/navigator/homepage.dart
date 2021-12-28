@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceproject/const/appcolor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+
 class Homepage extends StatefulWidget {
   const Homepage({ Key? key }) : super(key: key);
 
@@ -10,6 +13,21 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   @override
+  List <String> sliding_image = [];
+  var _firestoreInstance = FirebaseFirestore.instance;
+  fetchimage() async {
+    QuerySnapshot qn = await _firestoreInstance.collection("slide_image_01").get();
+  setState(() {
+    for (var i = 0; i < qn.docs.length; i++) {
+      sliding_image.add(qn.docs[i]["imgpath"]);
+    }
+  });
+  return qn.docs;
+  }
+  void initState(){
+    fetchimage();
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -46,14 +64,28 @@ class _HomepageState extends State<Homepage> {
                   height: 50.h,
                   width: 50.w,
                   child: Icon(Icons.search,color: Colors.grey),
-                )
+                ),
                   ],
                 ),
               ),
-              
+              AspectRatio(aspectRatio: 3.5,
+              child: CarouselSlider(
+                items: sliding_image.map((item)=>Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(decoration: BoxDecoration(
+                    image: DecorationImage(image: NetworkImage(item),fit: BoxFit.fitWidth)
+                  ),),
+                )).toList(), 
+                options: CarouselOptions(
+                  enlargeCenterPage: true,
+                  enlargeStrategy: CenterPageEnlargeStrategy.height,
+                  autoPlay: true,
+
+                )))
             ],
           ),
-      ))
+      ),
+      ),
     );
   }
 }
