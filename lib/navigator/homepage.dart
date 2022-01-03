@@ -16,6 +16,7 @@ class _HomepageState extends State<Homepage> {
   @override
   List<String> sliding_image = [];
   var _dotPosition = 0;
+  List _products = [];
   var _firestoreInstance = FirebaseFirestore.instance;
   fetchimage() async {
     QuerySnapshot qn =
@@ -27,11 +28,27 @@ class _HomepageState extends State<Homepage> {
     });
     return qn.docs;
   }
+  fatchProducts() async {
+    QuerySnapshot qn = await _firestoreInstance.collection("products").get();
+    setState(() {
+      for (int i = 0; i < qn.docs.length; i++) {
+        _products.add({
+          "product_name": qn.docs[i]["product_name"],
+          "product_description": qn.docs[i]["product_description"],
+          "product_price": qn.docs[i]["product_price"],
+          "pimg": qn.docs[i]["pimg"],
+        });
+      }
+    });
 
+    return qn.docs;
+  }
   void initState() {
     fetchimage();
+    fatchProducts();
     super.initState();
   }
+
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +111,7 @@ class _HomepageState extends State<Homepage> {
                     enlargeCenterPage: true,
                     enlargeStrategy: CenterPageEnlargeStrategy.height,
                     autoPlay: true,
+                    viewportFraction: 1,
                     onPageChanged: (val, carouselPageChangedReason) {
                         setState(() {
                           _dotPosition = val;
@@ -116,6 +134,39 @@ class _HomepageState extends State<Homepage> {
                   size: Size(6, 6),
                   color: appcolor.mycolor.withOpacity(0.5),
                 ),
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              Expanded(
+                child: GridView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _products.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, childAspectRatio: 1),
+                    itemBuilder: (_, index) {
+                      return GestureDetector(
+                        // onTap: () => Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (_) =>
+                        //             ProductDetails(_products[index]))),
+                        child: Card(
+                          elevation: 3,
+                          child: Column(
+                            children: [
+                              AspectRatio(
+                                  aspectRatio: 2,
+                                  child: Image.network(
+                                      _products[index]["pimg"][0])),
+                              Text("${_products[index]["product_name"]}"),
+                              Text(
+                                  "\৳ ${_products[index]["product_price"].toString()}"),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
               ),
             ],
           ),
