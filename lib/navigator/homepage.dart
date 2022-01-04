@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceproject/const/appcolor.dart';
+import 'package:ecommerceproject/ui/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -146,11 +147,11 @@ class _HomepageState extends State<Homepage> {
                         crossAxisCount: 2, childAspectRatio: 1),
                     itemBuilder: (_, index) {
                       return GestureDetector(
-                        // onTap: () => Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (_) =>
-                        //             ProductDetails(_products[index]))),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) =>
+                                    ProductDetails(_products[index]))),
                         child: Card(
                           elevation: 3,
                           child: Column(
