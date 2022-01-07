@@ -36,7 +36,7 @@ class _CartwidgetState extends State<Cartwidget> {
                       return ListTile(
                         leading: Text(_documentSnapshot['name']),
                         title: Text(
-                          "\$ ${_documentSnapshot['price']}",
+                          "\৳ ${_documentSnapshot['price']}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.red),
                         ),

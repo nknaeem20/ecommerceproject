@@ -110,79 +110,82 @@ class _ProductDetailsState extends State<ProductDetails> {
       body: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
         child: SafeArea(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AspectRatio(
-              aspectRatio: 1.5,
-              child: CarouselSlider(
-                items: widget._product["pimg"]
-                    .map<Widget>((item) => Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(item),
-                                      fit: BoxFit.fitWidth))),
-                        ))
-                    .toList(),
-                options: CarouselOptions(
-                    autoPlay: true,
-                    enlargeCenterPage: true,
-                    viewportFraction: 0.8,
-                    enlargeStrategy: CenterPageEnlargeStrategy.height,
-                    onPageChanged: (val, carouselPageChangedReason) {
-                      setState(() {
-                        _dotPosition = val;
-                      });
-                    }),
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Center(
-              child: DotsIndicator(
-                dotsCount:
-                    widget._product.length == 0 ? 1 : widget._product.length,
-                position: _dotPosition.toDouble(),
-                decorator: DotsDecorator(
-                  activeColor:appcolor.mycolor,
-                  spacing: EdgeInsets.all(2),
-                  activeSize: Size(8, 8),
-                  size: Size(6, 6),
-                  color: appcolor.mycolor.withOpacity(0.5),
+            child: SingleChildScrollView(
+              child: Column(
+              
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+              AspectRatio(
+                aspectRatio: 1.5,
+                child: CarouselSlider(
+                  items: widget._product["pimg"]
+                      .map<Widget>((item) => Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(item),
+                                        fit: BoxFit.fitWidth))),
+                          ))
+                      .toList(),
+                  options: CarouselOptions(
+                      autoPlay: true,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.8,
+                      enlargeStrategy: CenterPageEnlargeStrategy.height,
+                      onPageChanged: (val, carouselPageChangedReason) {
+                        setState(() {
+                          _dotPosition = val;
+                        });
+                      }),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Row(
-              children: [
-                Text(
-                  "\৳ ${widget._product['product_price'].toString()}",
-                  style: TextStyle(fontSize: 35.sp),
+              SizedBox(
+                height: 10.h,
+              ),
+              Center(
+                child: DotsIndicator(
+                  dotsCount:
+                      widget._product.length == 0 ? 1 : widget._product.length,
+                  position: _dotPosition.toDouble(),
+                  decorator: DotsDecorator(
+                    activeColor:appcolor.mycolor,
+                    spacing: EdgeInsets.all(2),
+                    activeSize: Size(8, 8),
+                    size: Size(6, 6),
+                    color: appcolor.mycolor.withOpacity(0.5),
+                  ),
                 ),
-                SizedBox(
-                  width: 100,
-                ),
-                ElevatedButton(
-                    onPressed: () => addToCart(), child: Text("Add To Cart"),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                children: [
+                  Text(
+                    "\৳ ${widget._product['product_price'].toString()}",
+                    style: TextStyle(fontSize: 35.sp),
+                  ),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  ElevatedButton(
+                      onPressed: () => addToCart(), child: Text("Add To Cart"),
+                      ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(widget._product['product_name'],
+                  style: TextStyle(fontSize: 25.sp)),
+              SizedBox(
+                height: 10,
+              ),
+              Text(widget._product['product_description']),
+                      ],
                     ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(widget._product['product_name'],
-                style: TextStyle(fontSize: 25.sp)),
-            SizedBox(
-              height: 10,
-            ),
-            Text(widget._product['product_description']),
-          ],
-        )),
+            )),
       ),
     );
   }
