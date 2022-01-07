@@ -20,21 +20,21 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   var _dotPosition = 0;
 
-  // Future addToCart() async {
-  //   final FirebaseAuth _auth = FirebaseAuth.instance;
-  //   var currentUser = _auth.currentUser;
-  //   CollectionReference _collectionRef =
-  //       FirebaseFirestore.instance.collection("users-cart-items");
-  //   return _collectionRef
-  //       .doc(currentUser!.email)
-  //       .collection("items")
-  //       .doc()
-  //       .set({
-  //     "name": widget._product["product-name"],
-  //     "price": widget._product["product-price"],
-  //     "image": widget._product["product-img"],
-  //   }).then((value) => print("Add to cart"));
-  // }
+  Future addToCart() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    var currentUser = _auth.currentUser;
+    CollectionReference _collectionRef =
+        FirebaseFirestore.instance.collection("users-cart-items");
+    return _collectionRef
+        .doc(currentUser!.email)
+        .collection("items")
+        .doc()
+        .set({
+      "name": widget._product["product_name"],
+      "price": widget._product["product_price"],
+      "image": widget._product["pimg"],
+    }).then((value) => print("Add to cart"));
+  }
 
   // Future addTofavourite() async {
   //   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -168,10 +168,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   width: 100,
                 ),
                 ElevatedButton(
-                    // onPressed: () => addToCart(), child: Text("Add To Cart")
-                    onPressed: (){},
-                    child: Text("Add To Cart"),
-
+                    onPressed: () => addToCart(), child: Text("Add To Cart"),
                     ),
               ],
             ),
