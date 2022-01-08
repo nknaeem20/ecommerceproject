@@ -29,7 +29,7 @@ class _LoginscreenState extends State<Loginscreen> {
   print(authCredential!.uid);
   if (authCredential.uid.isNotEmpty){
     Navigator.push(context,
-    MaterialPageRoute(builder: (_)=>Homewidget()));
+    MaterialPageRoute(builder: (_)=>CurveHomeWidget()));
   }
   else {Fluttertoast.showToast(msg: "Something went wrong!");}
 } on FirebaseAuthException catch (e) {

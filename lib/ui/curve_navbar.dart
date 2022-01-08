@@ -32,7 +32,8 @@ class _CurveHomeWidgetState extends State<CurveHomeWidget> {
           title: Center(child: Text("E-Commerce")),
         ),
         bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: appcolor.mycolor,
+          backgroundColor: Colors.white,
+          buttonBackgroundColor: appcolor.mycolor.withOpacity(0.5),
         items: [
           Container(
           child: Column(

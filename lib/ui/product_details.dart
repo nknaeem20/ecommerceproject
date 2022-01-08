@@ -36,21 +36,21 @@ class _ProductDetailsState extends State<ProductDetails> {
     }).then((value) => print("Add to cart"));
   }
 
-  // Future addTofavourite() async {
-  //   final FirebaseAuth _auth = FirebaseAuth.instance;
-  //   var currentUser = _auth.currentUser;
-  //   CollectionReference _collectionRef =
-  //       FirebaseFirestore.instance.collection("users-favourite-items");
-  //   return _collectionRef
-  //       .doc(currentUser!.email)
-  //       .collection("items")
-  //       .doc()
-  //       .set({
-  //     "name": widget._product["product-name"],
-  //     "price": widget._product["product-price"],
-  //     "image": widget._product["product-img"],
-  //   }).then((value) => print("Add to favourite"));
-  // }
+  Future addTofavourite() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    var currentUser = _auth.currentUser;
+    CollectionReference _collectionRef =
+        FirebaseFirestore.instance.collection("users_favorite_items");
+    return _collectionRef
+        .doc(currentUser!.email)
+        .collection("items")
+        .doc()
+        .set({
+      "name": widget._product["product_name"],
+      "price": widget._product["product_price"],
+      "image": widget._product["pimg"],
+    }).then((value) => print("Add to Favorite"));
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,40 +72,40 @@ class _ProductDetailsState extends State<ProductDetails> {
             size: 35,
           ),
         ),
-        // actions: [
-        //   StreamBuilder(
-        //     stream: FirebaseFirestore.instance
-        //         .collection("users-favourite-items")
-        //         .doc(FirebaseAuth.instance.currentUser!.email)
-        //         .collection("items")
-        //         .where("name", isEqualTo: widget._product['product-name'])
-        //         .snapshots(),
-        //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-        //       if (snapshot.data == null) {
-        //         return Text("");
-        //       }
-        //       return Padding(
-        //         padding: const EdgeInsets.only(right: 10),
-        //         child: CircleAvatar(
-        //           backgroundColor: Colors.red,
-        //           child: IconButton(
-        //               onPressed: () => snapshot.data.docs.length == 0
-        //                   ? addTofavourite()
-        //                   : Fluttertoast.showToast(msg: "Already Added"),
-        //               icon: snapshot.data.docs.length == 0
-        //                   ? Icon(
-        //                       Icons.favorite_outline,
-        //                       color: Colors.white,
-        //                     )
-        //                   : Icon(
-        //                       Icons.done,
-        //                       color: Colors.white,
-        //                     )),
-        //         ),
-        //       );
-        //     },
-        //   ),
-        // ],
+        actions: [
+          StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("users_favorite_items")
+                .doc(FirebaseAuth.instance.currentUser!.email)
+                .collection("items")
+                .where("name", isEqualTo: widget._product['product_name'])
+                .snapshots(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return Text("");
+              }
+              return Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: CircleAvatar(
+                  backgroundColor: appcolor.mycolor,
+                  child: IconButton(
+                      onPressed: () => snapshot.data.docs.length == 0
+                          ? addTofavourite()
+                          : Fluttertoast.showToast(msg: "Already Added"),
+                      icon: snapshot.data.docs.length == 0
+                          ? Icon(
+                              Icons.favorite_outline,
+                              color: Colors.white,
+                            )
+                          : Icon(
+                              Icons.done,
+                              color: Colors.white,
+                            )),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
@@ -170,7 +170,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                     width: 100,
                   ),
                   ElevatedButton(
+                    
                       onPressed: () => addToCart(), child: Text("Add To Cart"),
+                      
                       ),
                 ],
               ),
