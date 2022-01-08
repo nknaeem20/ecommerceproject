@@ -16,7 +16,7 @@ class _CartwidgetState extends State<Cartwidget> {
       body: SafeArea(
           child: StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection("users-cart-items")
+                  .collection("users_cart_items")
                   .doc(FirebaseAuth.instance.currentUser!.email)
                   .collection("items")
                   .snapshots(),
@@ -46,7 +46,7 @@ class _CartwidgetState extends State<Cartwidget> {
                           ),
                           onTap: () {
                             FirebaseFirestore.instance
-                                .collection("users-cart-items")
+                                .collection("users_cart_items")
                                 .doc(FirebaseAuth.instance.currentUser!.email)
                                 .collection("items")
                                 .doc(_documentSnapshot.id)

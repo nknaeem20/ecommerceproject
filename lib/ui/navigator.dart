@@ -36,13 +36,14 @@ class _HomewidgetState extends State<Homewidget> {
           BottomNavigationBarItem(icon: Icon(Icons.favorite_border_outlined),label:"Favorite"),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart),label: "Cart"),
           BottomNavigationBarItem(icon: Icon(Icons.person),label:"Profile"),
-          
         ],
+        
         onTap: (index){
           setState(() {
             indexpage = index;
           });
         },
+        fixedColor: appcolor.mycolor,
         ),
         body: page[indexpage],
       ),

@@ -1,4 +1,5 @@
 import 'package:ecommerceproject/const/appcolor.dart';
+import 'package:ecommerceproject/ui/curve_navbar.dart';
 import 'package:ecommerceproject/ui/navigator.dart';
 import 'package:ecommerceproject/ui/registrationscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
