@@ -28,7 +28,7 @@ class _RegistrationwidgetState extends State<Registrationwidget> {
   print(authCredential!.uid);
   if (authCredential.uid.isNotEmpty){
     Navigator.push(context,
-    MaterialPageRoute(builder: (_)=>Userform()));
+    MaterialPageRoute(builder: (_)=>UserForm()));
   }
   else {Fluttertoast.showToast(msg: "Something went wrong!");}
 } on FirebaseAuthException catch (e) {
