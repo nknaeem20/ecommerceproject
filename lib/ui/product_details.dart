@@ -7,19 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-
 class ProductDetails extends StatefulWidget {
   var _product;
   ProductDetails(this._product);
-
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
-
 class _ProductDetailsState extends State<ProductDetails> {
   @override
   var _dotPosition = 0;
-
   Future addToCart() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     var currentUser = _auth.currentUser;
@@ -112,7 +108,6 @@ class _ProductDetailsState extends State<ProductDetails> {
         child: SafeArea(
             child: SingleChildScrollView(
               child: Column(
-              
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
               AspectRatio(
@@ -170,9 +165,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     width: 100,
                   ),
                   ElevatedButton(
-                    
                       onPressed: () => addToCart(), child: Text("Add To Cart"),
-                      
                       ),
                 ],
               ),

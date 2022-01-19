@@ -1,7 +1,7 @@
 import 'package:ecommerceproject/const/appcolor.dart';
 import 'package:ecommerceproject/ui/curve_navbar.dart';
 import 'package:ecommerceproject/ui/navigator.dart';
-import 'package:ecommerceproject/ui/registrationscreen.dart';
+import 'package:ecommerceproject/ui/registration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -254,7 +254,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            Registrationwidget()));
+                                            Registration()));
                               },
                             )
                           ],

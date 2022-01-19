@@ -5,14 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class UserForm extends StatefulWidget {
   const UserForm({Key? key}) : super(key: key);
-
   @override
   _UserFormState createState() => _UserFormState();
 }
-
 class _UserFormState extends State<UserForm> {
   @override
   TextEditingController _nameController = TextEditingController();
@@ -59,108 +56,110 @@ class _UserFormState extends State<UserForm> {
         body: SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 20.h,
-            ),
-            Text(
-              "User Form",
-              style: TextStyle(
-                  fontSize: 45.sp,
-                  fontWeight: FontWeight.bold,
-                  color: appcolor.mycolor),
-            ),
-            Text(
-              "We will not share your information with anyone.",
-              style: TextStyle(fontSize: 15.sp, color: Color(0xFFBBBBBB)),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            TextField(
-              controller: _nameController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Enter Your Name",
-                label: Text("Name"),
-                prefixIcon: Icon(Icons.text_fields),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20.h,
               ),
-            ),
-            SizedBox(
-              height: 15.h,
-            ),
-            //Text Field
-            TextField(
-              controller: _phoneController,
-              decoration: InputDecoration(
+              Text(
+                "User Form",
+                style: TextStyle(
+                    fontSize: 45.sp,
+                    fontWeight: FontWeight.bold,
+                    color: appcolor.mycolor),
+              ),
+              Text(
+                "We will not share your information with anyone.",
+                style: TextStyle(fontSize: 15.sp, color: Color(0xFFBBBBBB)),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              TextField(
+                controller: _nameController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Phone No',
-                  hintText: 'Enter your phone number',
-                  prefixIcon: Icon(Icons.phone)),
-            ),
-            SizedBox(
-              height: 15.h,
-            ),
-            TextField(
-              controller: _ageController,
-              decoration: InputDecoration(
+                  hintText: "Enter Your Name",
+                  label: Text("Name"),
+                  prefixIcon: Icon(Icons.text_fields),
+                ),
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              //Text Field
+              TextField(
+                controller: _phoneController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Phone No',
+                    hintText: 'Enter your phone number',
+                    prefixIcon: Icon(Icons.phone)),
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              TextField(
+                controller: _ageController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Date of Birth',
+                    hintText: 'Choose Your Date of Birth',
+                    suffixIcon: IconButton(
+                        onPressed: () => _selectDateFromPicker(context),
+                        icon: Icon(Icons.calendar_today_outlined))),
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              TextField(
+                controller: _genderController,
+                readOnly: true,
+                decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Date of Birth',
-                  hintText: 'Choose Your Date of Birth',
-                  suffixIcon: IconButton(
-                      onPressed: () => _selectDateFromPicker(context),
-                      icon: Icon(Icons.calendar_today_outlined))),
-            ),
-            SizedBox(
-              height: 15.h,
-            ),
-            TextField(
-              controller: _genderController,
-              readOnly: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Choose your gender",
-                labelText: "Gender",
-                prefixIcon: DropdownButton<String>(
-                  items: gender.map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: new Text(value),
-                      onTap: () {
-                        setState(() {
-                          _genderController.text = value;
-                        });
-                      },
-                    );
-                  }).toList(),
-                  onChanged: (_) {},
+                  hintText: "Choose your gender",
+                  labelText: "Gender",
+                  prefixIcon: DropdownButton<String>(
+                    items: gender.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: new Text(value),
+                        onTap: () {
+                          setState(() {
+                            _genderController.text = value;
+                          });
+                        },
+                      );
+                    }).toList(),
+                    onChanged: (_) {},
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 15.h,
-            ),
-            SizedBox(
-              width: 1.sw,
-              height: 56.h,
-              child: ElevatedButton(
-                onPressed: () {
-                  sendUserDataToDB();
-                },
-                child: Text(
-                  "Continue",
-                  style: TextStyle(color: Colors.white, fontSize: 18.sp),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: appcolor.mycolor,
-                  elevation: 3,
+              SizedBox(
+                height: 15.h,
+              ),
+              SizedBox(
+                width: 1.sw,
+                height: 56.h,
+                child: ElevatedButton(
+                  onPressed: () {
+                    sendUserDataToDB();
+                  },
+                  child: Text(
+                    "Continue",
+                    style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: appcolor.mycolor,
+                    elevation: 3,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ));

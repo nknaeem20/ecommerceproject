@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class Profilewidget extends StatefulWidget {
@@ -56,7 +57,7 @@ class _ProfilewidgetState extends State<Profilewidget> {
       "name": _nameController!.text,
       "phone": _phoneController!.text,
       "age": _ageController!.text,
-    }).then((value) => print("Updated Successfully"));
+    }).then((value) => Fluttertoast.showToast(msg: "Updated Successfully"));
   }
 
   Widget build(BuildContext context) {
