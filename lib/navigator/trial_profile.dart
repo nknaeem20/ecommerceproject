@@ -6,41 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Profilewidget extends StatefulWidget {
-  const Profilewidget({Key? key}) : super(key: key);
+class TrialProfile extends StatefulWidget {
 
   @override
-  _ProfilewidgetState createState() => _ProfilewidgetState();
+  _TrialProfileState createState() => _TrialProfileState();
 }
 
-class _ProfilewidgetState extends State<Profilewidget> {
-  File? image;
-  final picker = ImagePicker();
-
-  getImage() async {
-    var pickedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      image = File(pickedImage!.path);
-    });
-  }
-  Future profileImageset() async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    var currentUser = _auth.currentUser;
-
-    CollectionReference _collectionRef =
-        FirebaseFirestore.instance.collection("profile_image");
-
-    return _collectionRef
-        .doc(currentUser!.email)
-        .set({
-          "profileimage": image!.path,
-        })
-        .then((value) => Navigator.push(
-            context, MaterialPageRoute(builder: (_) => Profilewidget())))
-        .catchError((error) => print("something is wrong. $error"));
-  }
+class _TrialProfileState extends State<TrialProfile> {
+  File? imageFile;
 
   @override
   TextEditingController? _nameController;
@@ -105,37 +78,39 @@ class _ProfilewidgetState extends State<Profilewidget> {
                   //   radius: 30,
                   //   child: Image.file(image!),
                   // ),
-                  
-                  Stack(
-                    children: [
-                      image == null
-                          ? Center(child: Text(""))
-                          : ClipRRect(
-                              borderRadius: BorderRadius.circular(125),
-                              child: Image.file(
-                                image!,
-                                height: 250,
-                                width: 250,
-                              ),
-                            ),
-                      Positioned(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 100,),
-                          child: IconButton(
-                              onPressed: () {
-                                getImage();
-                              },
-                              icon: Icon(Icons.add_a_photo)),
-                        ),
-                      ),
-                      // Positioned(
-                      //     child: ElevatedButton(
-                      //         onPressed: () {
-                      //           profileImageset();
-                      //         },
-                      //         child: Text("Upload")))
-                    ],
+                  Container(
+            child: imageFile == null
+                ? Container(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  RaisedButton(
+                    color: Colors.greenAccent,
+                    onPressed: () {
+                      _getFromGallery();
+                    },
+                    child: Text("PICK FROM GALLERY"),
                   ),
+                  Container(
+                    height: 40.0,
+                  ),
+                  RaisedButton(
+                    color: Colors.lightGreenAccent,
+                    onPressed: () {
+                      _getFromCamera();
+                    },
+                    child: Text("PICK FROM CAMERA"),
+                  )
+                ],
+              ),
+            ): Container(
+              child: Image.file(
+                imageFile!,
+                fit: BoxFit.cover,
+              ),
+            )),
+                  
                   StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection("users_form_data")
@@ -158,3 +133,34 @@ class _ProfilewidgetState extends State<Profilewidget> {
     );
   }
 }
+
+_getFromGallery() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+         var imageFile = File(pickedFile.path);
+      });
+    }
+  }
+
+void setState(Null Function() param0) {
+}
+
+  /// Get from Camera
+  _getFromCamera() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+         var imageFile = File(pickedFile.path);
+      });
+    }
+  }
+

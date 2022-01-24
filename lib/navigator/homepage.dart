@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceproject/const/appcolor.dart';
+import 'package:ecommerceproject/navigator/searchpage.dart';
 import 'package:ecommerceproject/ui/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,6 +83,10 @@ class _HomepageState extends State<Homepage> {
                               fontSize: 15.sp,
                             ),
                           ),
+                          onTap: (){
+                            Navigator.push(context, 
+                            MaterialPageRoute(builder: (context)=>SearchScreen()));
+                          },
                         ),
                       ),
                     ),
