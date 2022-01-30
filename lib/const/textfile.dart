@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-InputDecoration textfilesStyle(String labelText) {
+InputDecoration textfileStyle(String labelText) {
   return InputDecoration(
     contentPadding: const EdgeInsets.symmetric(
       horizontal: 15,

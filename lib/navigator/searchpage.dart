@@ -20,7 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
   CollectionReference firestoreDocs =
       FirebaseFirestore.instance.collection('products');
 
-  TextEditingController searchControler = TextEditingController();
+  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   onChanged: (value) {
                     setState(() {});
                   },
-                  controller: searchControler,
-                  decoration: textfilesStyle('search').copyWith(
+                  controller: searchController,
+                  decoration: textfileStyle('search').copyWith(
                     prefixIcon: const Icon(
                       Icons.search,
                       color: Colors.blue,
@@ -60,7 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
-                          searchControler.clear();
+                          searchController.clear();
                         });
                       },
                       icon:
@@ -89,7 +89,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             );
           }
-          if (searchControler.text.isEmpty) {
+          if (searchController.text.isEmpty) {
             return const Text('No search result',
                 style: TextStyle(fontSize: 16));
           } else {
@@ -99,7 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     .where(
                   (QueryDocumentSnapshot<Object> element) =>
                       element["product_name"].toString().toLowerCase().contains(
-                            searchControler.text.toLowerCase(),
+                            searchController.text.toLowerCase(),
                           ),
                 )
                     .map(
